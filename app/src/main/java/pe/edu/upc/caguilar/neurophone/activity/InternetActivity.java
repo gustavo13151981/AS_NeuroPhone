@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import pe.edu.upc.caguilar.neurophone.R;
 import pe.edu.upc.caguilar.neurophone.util.Utility;
 
-public class MensajeActivity extends AppCompatActivity {
+public class InternetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mensaje);
+        setContentView(R.layout.activity_internet);
 
         Utility.currentActivity = this;
     }
@@ -20,7 +20,7 @@ public class MensajeActivity extends AppCompatActivity {
     public void RecibirMensaje(String texto) {
 
         //############################# DEBUG #############################\\
-        Utility.PrintDebug("MensajeActivity","Mensaje Recibido = " + texto, null);
+        Utility.PrintDebug("InternetActivity","Mensaje Recibido = " + texto, null);
 
         //############################# LLAMADA #############################\\
 //        if(texto.contains("Llamar"))

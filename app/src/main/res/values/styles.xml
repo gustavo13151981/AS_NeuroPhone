@@ -8,32 +8,39 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppThemeSplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppThemeLlamada" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorLlamadaCabecera</item>
-        <item name="colorPrimaryDark">@color/colorLlamada</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <!--<style name="AppThemeLlamada" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorLlamadaCabecera</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorLlamada</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
 
-    <style name="AppThemeMensaje" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorMensajeCabecera</item>
-        <item name="colorPrimaryDark">@color/colorMensaje</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <!--<style name="AppThemeMensaje" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorMensajeCabecera</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorMensaje</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
 
-    <style name="AppThemeContacto" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorContactoCabecera</item>
-        <item name="colorPrimaryDark">@color/colorContacto</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <!--<style name="AppThemeContacto" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorContactoCabecera</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorContacto</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
+    <!--<style name="AppThemeCamara" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="colorPrimary">@color/colorContactoCabecera</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="colorPrimaryDark">@color/colorContacto</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="colorAccent">@color/colorAccent</item>&ndash;&gt;-->
+    <!--</style>-->
 
 </resources>

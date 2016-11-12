@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_contacto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_internet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pe.edu.upc.caguilar.neurophone.activity.ContactoActivity">
+    tools:context="pe.edu.upc.caguilar.neurophone.activity.InternetActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/fondo_contacto"
+        app:srcCompat="@drawable/fondo_internet"
         android:id="@+id/imageView6"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"

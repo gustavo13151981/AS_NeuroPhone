@@ -3,10 +3,17 @@ package pe.edu.upc.caguilar.neurophone.util;
 import android.app.Activity;
 import android.os.AsyncTask;
 
+import pe.edu.upc.caguilar.neurophone.activity.CamaraActivity;
 import pe.edu.upc.caguilar.neurophone.activity.ContactoActivity;
+import pe.edu.upc.caguilar.neurophone.activity.DocumentoActivity;
+import pe.edu.upc.caguilar.neurophone.activity.EmergenciaActivity;
+import pe.edu.upc.caguilar.neurophone.activity.GaleriaActivity;
+import pe.edu.upc.caguilar.neurophone.activity.InternetActivity;
 import pe.edu.upc.caguilar.neurophone.activity.LlamadaActivity;
 import pe.edu.upc.caguilar.neurophone.activity.MainMenuActivity;
 import pe.edu.upc.caguilar.neurophone.activity.MensajeActivity;
+import pe.edu.upc.caguilar.neurophone.activity.RelojAlarmaActivity;
+import pe.edu.upc.caguilar.neurophone.activity.ReproductorAudioActivity;
 
 /**
  * Created by cagui on 4/11/2016.
@@ -22,6 +29,10 @@ public class DesktopConnection {
 
         new ConnectTask().execute();
 
+    }
+
+    public static void SendMessage(String message){
+        tcpClient.sendMessage(message);
     }
 
     public static class ConnectTask extends AsyncTask<String, String, TcpClient> {
@@ -82,6 +93,34 @@ public class DesktopConnection {
                         MensajeActivity objActivity4 = (MensajeActivity) Utility.currentActivity;
                         objActivity4.RecibirMensaje(texto);
                         break;
+                    case "EmergenciaActivity":
+                        EmergenciaActivity objActivity5 = (EmergenciaActivity) Utility.currentActivity;
+                        objActivity5.RecibirMensaje(texto);
+                        break;
+                    case "GaleriaActivity":
+                        GaleriaActivity objActivity6 = (GaleriaActivity) Utility.currentActivity;
+                        objActivity6.RecibirMensaje(texto);
+                        break;
+                    case "RelojAlarmaActivity":
+                        RelojAlarmaActivity objActivity7 = (RelojAlarmaActivity) Utility.currentActivity;
+                        objActivity7.RecibirMensaje(texto);
+                        break;
+                    case "CamaraActivity":
+                        CamaraActivity objActivity8 = (CamaraActivity) Utility.currentActivity;
+                        objActivity8.RecibirMensaje(texto);
+                        break;
+                    case "DocumentoActivity":
+                        DocumentoActivity objActivity9 = (DocumentoActivity) Utility.currentActivity;
+                        objActivity9.RecibirMensaje(texto);
+                        break;
+                    case "ReproductorAudioActivity":
+                        ReproductorAudioActivity objActivity10 = (ReproductorAudioActivity) Utility.currentActivity;
+                        objActivity10.RecibirMensaje(texto);
+                        break;
+                    case "InternetActivity":
+                        InternetActivity objActivity11 = (InternetActivity) Utility.currentActivity;
+                        objActivity11.RecibirMensaje(texto);
+                        break;
                 }
 
             }
@@ -105,7 +144,5 @@ public class DesktopConnection {
             //    x.setRecibido(x.getLocalClassName());
             //}
         }
-
-
     }
 }

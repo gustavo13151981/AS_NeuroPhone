@@ -18,28 +18,81 @@ public class ContactoActivity extends AppCompatActivity {
     }
 
     public void RecibirMensaje(String texto) {
-        Utility.PrintDebug("MainMenu","Mensaje Recibido = " + texto, null);
 
+        //############################# DEBUG #############################\\
+        Utility.PrintDebug("ContactoActivity","Mensaje Recibido = " + texto, null);
+
+        //############################# LLAMADA #############################\\
+//        if(texto.contains("Llamar"))
+//            RealizarLlamada(texto);
+//
+//        if(texto.contains("Cortar"))
+//            CortarLlamada(texto);
+
+        //############################# GENERICOS #############################\\
+        /*
         if(texto.equals("Menu")){
             Intent intent = new Intent(this,MainMenuActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
-        if(texto.equals("Llamada")){
+        if(texto.equals("LlamadaFocus")){
             Intent intent = new Intent(this,LlamadaActivity.class);
             startActivity(intent);
             finish();
         }
 
-        if(texto.equals("Mensaje")){
+        if(texto.equals("MensajeFocus")){
             Intent intent = new Intent(this,MensajeActivity.class);
             startActivity(intent);
             finish();
         }
 
-        if(texto.equals("Contacto")){
+        if(texto.equals("ContactoFocus")){
             Intent intent = new Intent(this,ContactoActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(texto.equals("CamaraFocus")){
+            Intent intent = new Intent(this,CamaraActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(texto.equals("ReproductorFocus")){
+            Intent intent = new Intent(this,ReproductorAudioActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(texto.equals("RelojFocus")){
+            Intent intent = new Intent(this,RelojAlarmaActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(texto.equals("DocumentoFocus")){
+            Intent intent = new Intent(this,DocumentoActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(texto.equals("InternetFocus")){
+            Intent intent = new Intent(this,InternetActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(texto.equals("GaleriaFocus")){
+            Intent intent = new Intent(this,GaleriaActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        if(texto.equals("EmergenciaFocus")){
+            Intent intent = new Intent(this,EmergenciaActivity.class);
             startActivity(intent);
             finish();
         }

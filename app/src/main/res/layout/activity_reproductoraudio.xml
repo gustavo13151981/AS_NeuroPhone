@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_contacto"
+    android:id="@+id/activity_reproductoraudio"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pe.edu.upc.caguilar.neurophone.activity.ContactoActivity">
+    tools:context="pe.edu.upc.caguilar.neurophone.activity.ReproductorAudioActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/fondo_contacto"
+        app:srcCompat="@drawable/fondo_reproductoraudio"
         android:id="@+id/imageView6"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
