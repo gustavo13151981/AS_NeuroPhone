@@ -18,7 +18,7 @@ import pe.edu.upc.caguilar.neurophone.R;
 import pe.edu.upc.caguilar.neurophone.util.DesktopConnection;
 import pe.edu.upc.caguilar.neurophone.util.Utility;
 
-public class LlamadaActivity extends AppCompatActivity {
+public class LlamadaActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class LlamadaActivity extends AppCompatActivity {
 
                 //LOOP para captar cuando se realice la llamada e inicie el SPEAKER
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -162,7 +162,7 @@ public class LlamadaActivity extends AppCompatActivity {
                 case TelephonyManager.CALL_STATE_OFFHOOK: //Call is established
 
                         try {
-                            Thread.sleep(500); // Delay 0,5 seconds to handle better turning on loudspeaker
+                            Thread.sleep(200); // Delay 0,5 seconds to handle better turning on loudspeaker
                         } catch (InterruptedException e) {
                         }
 
