@@ -43,6 +43,7 @@ public class TcpClient {
     public void sendMessage(String message) {
         if (mBufferOut != null && !mBufferOut.checkError()) {
             //mBufferOut.println(message);
+            Utility.PrintDebug("TcpClient","Enviando: " + message, null);
             mBufferOut.print(message);
             mBufferOut.flush();
         }

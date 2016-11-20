@@ -14,24 +14,19 @@ public class EmergenciaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergencia);
 
-        Utility.PrintDebug("EmergenciaActivity","PRESETEO", null);
         Utility.currentActivity = this;
-        Utility.PrintDebug("EmergenciaActivity","POSTSETEO", null);
     }
 
+    /*#############################################################################################*/
     public void RecibirMensaje(String texto) {
 
-        //############################# DEBUG #############################\\
+        /*############################# DEBUG #############################*/
         Utility.PrintDebug("EmergenciaActivity","Mensaje Recibido = " + texto, null);
 
-        //############################# LLAMADA #############################\\
-//        if(texto.contains("Llamar"))
-//            RealizarLlamada(texto);
-//
-//        if(texto.contains("Cortar"))
-//            CortarLlamada(texto);
+        /*############################# EMERGENCIA #############################*/
 
-        //############################# GENERICOS #############################\\
+
+        /*############################# GENERICOS #############################*/
         /*
         if(texto.equals("Menu")){
             Intent intent = new Intent(this,MainMenuActivity.class);

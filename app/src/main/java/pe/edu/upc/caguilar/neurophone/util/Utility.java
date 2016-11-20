@@ -9,16 +9,20 @@ import android.util.Log;
 
 public class Utility {
 
-    public static int splashScreenTimer = 5000;
+    public static int splashScreenTimer = 5000; //5000
     public static int socketTimeOutTimer = 4000;
     //public static Context miContext;
     public static Activity currentActivity;
 
-    public static String ipPC = "192.168.43.105"; //TODO: Abstraer esto de alguna forma, al igual que en la dekstop app
+    public static String ipPC = "192.168.1.20"; //TODO: Abstraer esto de alguna forma, al igual que en la dekstop app
     public static int port = 200; //TODO: Abstraer esto de alguna forma, al igual que en la dekstop app
 
 
+    /*######################### Variables Llamada ###################################*/
+    public static boolean llamando = false;
 
+
+    /*######################### Metodos Genericos Utiles ###################################*/
     public static void PrintDebug(String tag, String message, Throwable e){
 
         if(e == null)

@@ -122,27 +122,7 @@ public class DesktopConnection {
                         objActivity11.RecibirMensaje(texto);
                         break;
                 }
-
             }
-
-            /*
-            txtRecibido.setText("Recibido: " + texto);
-
-            if(texto.equals("blink"))
-                btnCursor.setY(btnCursor.getY() + 30);
-            if(texto.equals("left"))
-                btnCursor.setX(btnCursor.getX() - 30);
-            if(texto.equals("right"))
-                btnCursor.setX(btnCursor.getX() + 30);
-            if(texto.equals("surprise"))
-                btnCursor.setY(btnCursor.getY() - 30);
-            */
-
-            //TODO: Aca referenciar cada Activity con un switch y castear enviando el string comando del EE
-            //if(Utility.getMyActivity() != null){
-            //    MenuActivity x = (MenuActivity)Utility.getMyActivity();
-            //    x.setRecibido(x.getLocalClassName());
-            //}
         }
     }
 }

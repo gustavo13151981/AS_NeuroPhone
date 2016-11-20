@@ -17,19 +17,16 @@ public class CamaraActivity extends AppCompatActivity {
         Utility.currentActivity = this;
     }
 
+    /*#############################################################################################*/
     public void RecibirMensaje(String texto) {
 
-        //############################# DEBUG #############################\\
+        /*############################# DEBUG #############################*/
         Utility.PrintDebug("CamaraActivity","Mensaje Recibido = " + texto, null);
 
-        //############################# LLAMADA #############################\\
-//        if(texto.contains("Llamar"))
-//            RealizarLlamada(texto);
-//
-//        if(texto.contains("Cortar"))
-//            CortarLlamada(texto);
+        /*############################# CAMARA #############################*/
 
-        //############################# GENERICOS #############################\\
+
+        /*############################# GENERICOS #############################*/
         /*
         if(texto.equals("Menu")){
             Intent intent = new Intent(this,MainMenuActivity.class);

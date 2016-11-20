@@ -17,19 +17,16 @@ public class GaleriaActivity extends AppCompatActivity {
         Utility.currentActivity = this;
     }
 
+    /*#############################################################################################*/
     public void RecibirMensaje(String texto) {
 
-        //############################# DEBUG #############################\\
+        /*############################# DEBUG #############################*/
         Utility.PrintDebug("GaleriaActivity","Mensaje Recibido = " + texto, null);
 
-        //############################# LLAMADA #############################\\
-//        if(texto.contains("Llamar"))
-//            RealizarLlamada(texto);
-//
-//        if(texto.contains("Cortar"))
-//            CortarLlamada(texto);
+        /*############################# GALERIA #############################*/
 
-        //############################# GENERICOS #############################\\
+
+        /*############################# GENERICOS #############################*/
         /*
         if(texto.equals("Menu")){
             Intent intent = new Intent(this,MainMenuActivity.class);

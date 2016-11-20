@@ -1,20 +1,31 @@
 package pe.edu.upc.caguilar.neurophone.activity;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.AudioManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import pe.edu.upc.caguilar.neurophone.R;
+import pe.edu.upc.caguilar.neurophone.helper.StatePhoneReceiver;
+import pe.edu.upc.caguilar.neurophone.model.Contacto;
 import pe.edu.upc.caguilar.neurophone.util.DesktopConnection;
 import pe.edu.upc.caguilar.neurophone.util.Utility;
 
@@ -26,6 +37,76 @@ public class LlamadaActivity extends AppCompatActivity{
         setContentView(R.layout.activity_llamada);
 
         Utility.currentActivity = this;
+    }
+    /*#############################################################################################*/
+    private void ObtenerContactos(){
+
+        Utility.PrintDebug("LlamadaActivity","Obtener Contactos", null);
+
+        ContentResolver cr = this.getContentResolver(); //Activity/Application android.content.Context
+        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
+        List<Contacto> lstContactos = new ArrayList<Contacto>();
+
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+
+                if(Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0)
+                {
+                    Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",new String[]{ id }, null);
+                    while (pCur.moveToNext())
+                    {
+                        Contacto contacto = new Contacto();
+
+                        String nombre = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                        String numero = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        String image_uri = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI));
+                        String foto = "null";
+                        Bitmap image_bitmap = null;
+                        byte[] bArray = null;
+                        try {
+                            image_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),Uri.parse(image_uri));
+                        }catch (Exception e){
+                            image_bitmap = null;
+                        }
+                        if(image_bitmap!=null){
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            image_bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+                            bArray = stream.toByteArray();
+                            Utility.PrintDebug("LlamadaActivity " + bArray.length, Arrays.toString(bArray), null);
+                            foto = new String(Base64.encode(bArray,Base64.NO_CLOSE));
+                        }
+                        //InputStream image_blob = ContactsContract.Contacts.openContactPhotoInputStream(cr, Uri.parse(image_uri));
+                        contacto.setNombre(nombre);
+                        contacto.setNumero(numero);
+                        contacto.setFoto(foto);
+                        lstContactos.add(contacto);
+                        break;
+                    }
+                    pCur.close();
+                }
+            } while (cursor.moveToNext());
+        }
+
+        Utility.PrintDebug("LlamadaActivity","Contactos Obtenidos = " + lstContactos.size(), null);
+
+        DesktopConnection.SendMessage("ContactosInicio");
+
+        String cadenaEnviar = "";
+        int max;
+        if(lstContactos.size()>25)
+            max = 25;
+        else
+            max = lstContactos.size();
+
+        for(int i=0; i<max; i++){ //alContacts.size()
+            cadenaEnviar = cadenaEnviar + lstContactos.get(i).getNombre() + "#;#;" + lstContactos.get(i).getNumero() + "#;#;" + lstContactos.get(i).getFoto() + "&;&;";
+        }
+        DesktopConnection.SendMessage(cadenaEnviar);
+
     }
 
     /*#############################################################################################*/
@@ -52,6 +133,7 @@ public class LlamadaActivity extends AppCompatActivity{
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             Utility.PrintDebug("LlamadaActivity","Error Llamar = " + numero + " No aceptó permisos", null);
+            DesktopConnection.SendMessage("LlamadaErrorPermiso");
             return;
         }
         else{
@@ -59,9 +141,22 @@ public class LlamadaActivity extends AppCompatActivity{
             Utility.PrintDebug("LlamadaActivity","Llamando = " + numero, null);
             startActivity(in);
 
+            TelephonyManager tManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            tManager.listen(new StatePhoneReceiver(this), PhoneStateListener.LISTEN_CALL_STATE);
+//                            | PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
+//                            | PhoneStateListener.LISTEN_CELL_LOCATION
+//                            | PhoneStateListener.LISTEN_DATA_ACTIVITY
+//                            | PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+//                            | PhoneStateListener.LISTEN_SERVICE_STATE
+//                            | PhoneStateListener.LISTEN_SIGNAL_STRENGTHS
+//                            | PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
+//                            | PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR);
+
             //Variables para el loop de CALL_STATE
-            Boolean llamando = false;
-            int contadorIdle = 0;  //usualmente tarda 1 segundo en entrar al OFFHOOK, pero se usara 3 segds x si falla
+//            Boolean llamando = false;
+//            int contadorIdle = 0;  //usualmente tarda 1 segundo en entrar al OFFHOOK, pero se usara 3 segds x si falla
+
+            /*
             while(true) {
 
                 TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
@@ -102,6 +197,7 @@ public class LlamadaActivity extends AppCompatActivity{
             }
 
             //DesktopConnection.SendMessage("LlamadaLlamarOK");
+            */
         }
     }
 
@@ -146,46 +242,6 @@ public class LlamadaActivity extends AppCompatActivity{
     }
 
     /*#############################################################################################*/
-    public class StatePhoneReceiver extends PhoneStateListener{
-
-        Context context;
-        public StatePhoneReceiver(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onCallStateChanged(int state, String incomingNumber) {
-            super.onCallStateChanged(state, incomingNumber);
-
-            switch (state) {
-
-                case TelephonyManager.CALL_STATE_OFFHOOK: //Call is established
-
-                        try {
-                            Thread.sleep(200); // Delay 0,5 seconds to handle better turning on loudspeaker
-                        } catch (InterruptedException e) {
-                        }
-
-                        //Activate loudspeaker
-                        AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                        audioManager.setMode(AudioManager.MODE_IN_CALL);
-                        audioManager.setSpeakerphoneOn(true);
-
-                    break;
-
-                case TelephonyManager.CALL_STATE_IDLE: //Call is finished
-
-                        AudioManager audioManager1 = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-                        audioManager1.setMode(AudioManager.MODE_NORMAL); //Deactivate loudspeaker
-//                        manager.listen(myPhoneStateListener, // Remove listener
-//                                PhoneStateListener.LISTEN_NONE);
-
-                    break;
-            }
-        }
-    }
-
-    /*#############################################################################################*/
     public void RecibirMensaje(String texto) {
 
         /*############################# DEBUG #############################*/
@@ -197,6 +253,9 @@ public class LlamadaActivity extends AppCompatActivity{
 
         if(texto.contains("Cortar"))
             CortarLlamada();
+
+        if(texto.equals("ContactoListar"))
+            ObtenerContactos();
 
         /*############################# GENERICOS #############################*/
         /*
