@@ -74,10 +74,10 @@ public class LlamadaActivity extends AppCompatActivity{
                         }
                         if(image_bitmap!=null){
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            image_bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+                            image_bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                             bArray = stream.toByteArray();
                             Utility.PrintDebug("LlamadaActivity " + bArray.length, Arrays.toString(bArray), null);
-                            foto = new String(Base64.encode(bArray,Base64.NO_CLOSE));
+                            foto = new String(Base64.encode(bArray,Base64.NO_WRAP)); //NO_CLOSE
                         }
                         //InputStream image_blob = ContactsContract.Contacts.openContactPhotoInputStream(cr, Uri.parse(image_uri));
                         contacto.setNombre(nombre);
@@ -93,7 +93,7 @@ public class LlamadaActivity extends AppCompatActivity{
 
         Utility.PrintDebug("LlamadaActivity","Contactos Obtenidos = " + lstContactos.size(), null);
 
-        DesktopConnection.SendMessage("ContactosInicio");
+        //DesktopConnection.SendMessage("ContactosInicio");
 
         String cadenaEnviar = "";
         int max;
@@ -105,6 +105,7 @@ public class LlamadaActivity extends AppCompatActivity{
         for(int i=0; i<max; i++){ //alContacts.size()
             cadenaEnviar = cadenaEnviar + lstContactos.get(i).getNombre() + "#;#;" + lstContactos.get(i).getNumero() + "#;#;" + lstContactos.get(i).getFoto() + "&;&;";
         }
+//        cadenaEnviar.replaceAll("\r\n","");
         DesktopConnection.SendMessage(cadenaEnviar);
 
     }

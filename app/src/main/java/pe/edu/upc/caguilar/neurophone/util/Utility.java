@@ -14,7 +14,7 @@ public class Utility {
     //public static Context miContext;
     public static Activity currentActivity;
 
-    public static String ipPC = "192.168.43.105"; //TODO: Abstraer esto de alguna forma, al igual que en la dekstop app
+    public static String ipPC = "192.168.1.20"; //TODO: Abstraer esto de alguna forma, al igual que en la dekstop app
     public static int port = 200; //TODO: Abstraer esto de alguna forma, al igual que en la dekstop app
 
 

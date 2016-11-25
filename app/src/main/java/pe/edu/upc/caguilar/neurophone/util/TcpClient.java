@@ -43,8 +43,8 @@ public class TcpClient {
     public void sendMessage(String message) {
         if (mBufferOut != null && !mBufferOut.checkError()) {
             //mBufferOut.println(message);
-            Utility.PrintDebug("TcpClient","Enviando: " + message, null);
-            mBufferOut.print(message);
+            Utility.PrintDebug("TcpClient","Enviando (" + message.length() + "): " + message, null);
+            mBufferOut.println(message);
             mBufferOut.flush();
         }
     }
@@ -105,8 +105,8 @@ public class TcpClient {
                 //in this while the client listens for the messages sent by the server
                 while (mRun) {
 
-                    //mServerMessage = mBufferIn.readLine();
-                    if(!mBufferIn.ready()){
+                    mServerMessage = mBufferIn.readLine();
+                    //if(!mBufferIn.ready()){
                         if (mServerMessage != null && mMessageListener != null) {
                             //call the method messageReceived from MyActivity class
                             if(mServerMessage.equals("EXIT"))
@@ -116,8 +116,8 @@ public class TcpClient {
                                 mServerMessage = "";
                             }
                         }
-                    }
-                    mServerMessage += Character.toString((char)mBufferIn.read());
+                    //}
+                    //mServerMessage += Character.toString((char)mBufferIn.read());
                 }
 
                 Utility.PrintDebug("TcpClient", "Conexion Finalizada EXIT", null);
