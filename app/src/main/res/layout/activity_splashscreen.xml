@@ -12,12 +12,13 @@
     tools:context="pe.edu.upc.caguilar.neurophone.activity.SplashScreenActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logo_emotiv_epoc"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/imageView" />
+        android:id="@+id/imageView"
+        android:scaleType="centerInside"
+        android:layout_width="wrap_content"
+        android:cropToPadding="false"
+        android:layout_margin="100dp" />
 
     <ImageView
         android:layout_width="wrap_content"

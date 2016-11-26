@@ -121,24 +121,18 @@ public class TcpClient {
                 }
 
                 Utility.PrintDebug("TcpClient", "Conexion Finalizada EXIT", null);
-//                Log.d("RESPONSE FROM SERVER", "S: Received Message: '" + mServerMessage + "'");
-
             } catch (Exception e) {
-//                SplashScreenActivity objActivity1 = (SplashScreenActivity) Utility.currentActivity;
-//                Activity x = Utility.currentActivity;
-//                objActivity1.recibirMensaje("FAIL");
                 Utility.PrintDebug("TcpClient", "Socket Exception", null);
-
             } finally {
-                //the socket must be closed. It is not possible to reconnect to this socket
-                // after it is closed, which means a new socket instance has to be created.
                 socket.close();
+                Utility.currentActivity.finish();
             }
 
         } catch (Exception e) {
 
             Utility.PrintDebug("TcpClient", "Socket Final Exception", null);
-
+            Utility.currentActivity.finish();
+            Utility.PrintDebug("TcpClient",Utility.currentActivity.getLocalClassName(), null);
         }
     }
 
