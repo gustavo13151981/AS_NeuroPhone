@@ -26,7 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         Utility.currentActivity = this;
 
-        LoadSavedVariables();
+       // LoadSavedVariables();
 
         InitializeDesktopConnection();
 
@@ -35,12 +35,19 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void LoadSavedVariables() {
 
-        if(sharedPreferences == null) {
-            sharedPreferences = getSharedPreferences("Variables", MODE_PRIVATE);
-        }
-        String ip = sharedPreferences.getString("ip", "");
+        try {
+            if(sharedPreferences == null) {
+                sharedPreferences = getSharedPreferences("Variables", MODE_PRIVATE);
+            }
+            String ip = sharedPreferences.getString("ip", "");
 
-        Utility.ipPC = ip;
+            Utility.ipPC = ip;
+        }
+        catch (Exception e)
+        {
+
+        }
+
     }
 
     private void StartSplashScreenTimer() {

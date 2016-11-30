@@ -125,7 +125,7 @@ public class TcpClient {
                 Utility.PrintDebug("TcpClient", "Socket Exception", null);
             } finally {
                 socket.close();
-                Utility.currentActivity.finish();
+                //Utility.currentActivity.finish();
             }
 
         } catch (Exception e) {
