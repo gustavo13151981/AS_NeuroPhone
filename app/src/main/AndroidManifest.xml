@@ -12,7 +12,9 @@
     <!--SPEAKER-->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- CONTACTOS -->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <!-- DB -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 

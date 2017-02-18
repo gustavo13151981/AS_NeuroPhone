@@ -17,6 +17,7 @@ import static pe.edu.upc.caguilar.neurophone.util.Utility.llamando;
 public class StatePhoneReceiver extends PhoneStateListener {
 
     Context context;
+
     public StatePhoneReceiver(Context context) {
         this.context = context;
     }

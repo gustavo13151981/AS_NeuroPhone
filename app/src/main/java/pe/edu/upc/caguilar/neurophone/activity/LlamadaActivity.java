@@ -255,7 +255,7 @@ public class LlamadaActivity extends AppCompatActivity{
         if(texto.contains("Cortar"))
             CortarLlamada();
 
-        if(texto.equals("ContactoListar"))
+        if(texto.equals("LlamadaContacto"))
             ObtenerContactos();
 
         /*############################# GENERICOS #############################*/
