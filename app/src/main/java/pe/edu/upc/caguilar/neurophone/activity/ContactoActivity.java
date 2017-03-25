@@ -75,7 +75,6 @@ public class ContactoActivity extends AppCompatActivity {
         Utility.PrintDebug("ContactoActivity","Mensaje Recibido = " + texto, null);
 
         /*############################# CONTACTO #############################*/
-
         if(texto.equals("ContactosListar")){
             ObtenerContactos();
         }

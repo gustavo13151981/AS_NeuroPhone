@@ -84,6 +84,7 @@ public class TcpClient {
             try {
                 SocketAddress socketAddress = new InetSocketAddress(Utility.ipPC,Utility.port);
                 //socket = new Socket(serverAddr, SERVER_PORT);
+                Utility.PrintDebug("TcpClient", "Connecting " + Utility.ipPC, null);
                 socket = new Socket();
                 socket.connect(socketAddress,Utility.socketTimeOutTimer);
                 //socket.connect(serverAddr,serverAddr);
@@ -122,7 +123,7 @@ public class TcpClient {
 
                 Utility.PrintDebug("TcpClient", "Conexion Finalizada EXIT", null);
             } catch (Exception e) {
-                Utility.PrintDebug("TcpClient", "Socket Exception", null);
+                Utility.PrintDebug("TcpClient", "Socket Exception " + e.getMessage(), null);
             } finally {
                 socket.close();
                 //Utility.currentActivity.finish();
@@ -130,7 +131,8 @@ public class TcpClient {
 
         } catch (Exception e) {
 
-            Utility.PrintDebug("TcpClient", "Socket Final Exception", null);
+            Utility.PrintDebug("TcpClient", "Socket Final Exception " + e.getMessage()
+                    , null);
             Utility.currentActivity.finish();
             Utility.PrintDebug("TcpClient",Utility.currentActivity.getLocalClassName(), null);
         }

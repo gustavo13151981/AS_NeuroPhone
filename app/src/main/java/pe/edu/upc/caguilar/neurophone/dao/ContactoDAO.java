@@ -25,9 +25,6 @@ public class ContactoDAO {
 
     public void actualizarContacto(Contacto objContacto){
 
-
-//        getAllConactIds(); 48
-//
         Utility.PrintDebug("ContactoDAO ", "EntroActualizar", null);
 
         ContentResolver contentResolver  = Utility.currentActivity.getContentResolver();
@@ -64,11 +61,9 @@ public class ContactoDAO {
             Utility.PrintDebug("ContactoDAO ", "FAIL ACTUALIZAR", null);
             e.printStackTrace();
         }
-
     }
 
-    public ArrayList<String> getAllConactIds()
-    {
+    public ArrayList<String> getAllConactIds(){
         ArrayList<String> contactList = new ArrayList<String>();
 
         Cursor cursor = Utility.currentActivity.managedQuery(ContactsContract.Contacts.CONTENT_URI, null, null, null, "display_name ASC");
@@ -89,6 +84,28 @@ public class ContactoDAO {
         }
 
         return contactList;
+    }
+
+    public String obtenerNombreContacto(String numeroTelefono){
+
+        ContentResolver cr = Utility.currentActivity.getContentResolver();
+
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,Uri.encode(numeroTelefono));
+        Cursor cursor = cr.query(uri, new String[] { ContactsContract.PhoneLookup.DISPLAY_NAME }, null, null, null);
+
+        if (cursor == null) {
+            return null;
+        }
+
+        String contactName = null;
+        if (cursor.moveToFirst()) {
+            contactName = cursor.getString(cursor
+                    .getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
+        }
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+        return contactName;
     }
 
     public List<Contacto> listarContactos(){
@@ -145,5 +162,36 @@ public class ContactoDAO {
         }
 
         return lstContactos;
+    }
+
+    public String listarSMS(){
+
+        Uri smsUri = Uri.parse("content://sms/"); //"content://sms/inbox"
+        String[] smsProjection = new String[] {"_id", "address", "person", "body", "date", "type"};
+        String smsSelection =  null;//"address='+51989029987'";
+        ContentResolver cr = Utility.currentActivity.getContentResolver();
+        Cursor smsCursor = cr.query(smsUri, smsProjection, smsSelection, null, "date desc"); //uri,projection,selection,selectionArgs,sortOrder
+
+        String msgData = "";
+
+        if (smsCursor.moveToFirst()) {
+            do {
+
+                msgData += smsCursor.getString(smsCursor.getColumnIndex("_id"));
+                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndex("address"));
+                msgData += "#;#;" + obtenerNombreContacto(smsCursor.getString(smsCursor.getColumnIndex("address")));//smsCursor.getString(smsCursor.getColumnIndex("person"));
+                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("body"));
+                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("date"));
+                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("type"));
+                msgData += "&;&;";
+
+                Utility.PrintDebug("ContactoDAO ", msgData , null);
+
+            } while (smsCursor.moveToNext());
+        } else {
+            // empty box, no SMS
+        }
+
+        return msgData;
     }
 }

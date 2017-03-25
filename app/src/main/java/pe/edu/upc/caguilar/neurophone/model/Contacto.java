@@ -1,5 +1,7 @@
 package pe.edu.upc.caguilar.neurophone.model;
 
+import java.util.List;
+
 /**
  * Created by cagui on 19/11/2016.
  */
@@ -11,6 +13,7 @@ public class Contacto {
     private String numero;
     private String email;
     private String foto;
+    private List<Mensaje> lstMensaje;
 
     public String getId() {
         return id;
@@ -50,5 +53,13 @@ public class Contacto {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public List<Mensaje> getLstMensaje() {
+        return lstMensaje;
+    }
+
+    public void setLstMensaje(List<Mensaje> lstMensaje) {
+        this.lstMensaje = lstMensaje;
     }
 }

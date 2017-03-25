@@ -2,6 +2,7 @@ package pe.edu.upc.caguilar.neurophone.util;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.telephony.SmsManager;
 
 import pe.edu.upc.caguilar.neurophone.activity.CamaraActivity;
 import pe.edu.upc.caguilar.neurophone.activity.ContactoActivity;
@@ -28,7 +29,6 @@ public class DesktopConnection {
     public static void Conectar(){
 
         new ConnectTask().execute();
-
     }
 
     public static void SendMessage(String message){
@@ -60,15 +60,18 @@ public class DesktopConnection {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            //response received from server
-//            Log.d("#DESKTOPCONNECTION", "response " + values[0]);
-            //process server response here....
+
             //TODO: Aca setear cuando se pierde la conexion y finalizar el socket
 
             //currently test methods for PoC purpose
             String texto = values[0];
 
             Utility.PrintDebug("DesktopConnection","Mensaje Sockets Recibido = " + texto, null);
+
+            if(texto.contains("Emergencia") && !texto.equals("EmergenciaFocus")){
+                EnviarSMSEmergencia(texto);
+                return;
+            }
 
             if(Utility.currentActivity != null) {
 
@@ -123,6 +126,15 @@ public class DesktopConnection {
                         break;
                 }
             }
+        }
+
+        private void EnviarSMSEmergencia(String texto) {
+
+            String numero = texto.split("#;#;")[1];
+            String mensaje = texto.split("#;#;")[2];
+
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(numero, null, mensaje, null, null);
         }
     }
 }

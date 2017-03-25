@@ -1,11 +1,15 @@
 package pe.edu.upc.caguilar.neurophone.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.widget.EditText;
@@ -17,7 +21,9 @@ import pe.edu.upc.caguilar.neurophone.util.Utility;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
+    private static SharedPreferences sharedPreferences;
+
+    private static final int MY_PERMISSIONS_REQUEST_MULTIPLE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +32,18 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         Utility.currentActivity = this;
 
-       // LoadSavedVariables();
+        LoadPermissionesRequest();
 
-        InitializeDesktopConnection();
+    }
 
-        StartSplashScreenTimer();
+    private void LoadPermissionesRequest() {
+
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.CALL_PHONE,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSIONS_REQUEST_MULTIPLE);
+
     }
 
     private void LoadSavedVariables() {
@@ -41,7 +54,10 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
             String ip = sharedPreferences.getString("ip", "");
 
-            Utility.ipPC = ip;
+            if(ip.equals(""))
+                Utility.ipPC = "192.168.2.20";
+            else
+                Utility.ipPC = ip;
         }
         catch (Exception e)
         {
@@ -54,6 +70,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 if(DesktopConnection.connected){
                     Intent intent = new Intent(SplashScreenActivity.this,LlamadaActivity.class);
                     startActivity(intent);
@@ -66,10 +83,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(Utility.currentActivity);
                     builder.setTitle("Nueva Dirección IP");
 
                     final EditText input = new EditText(Utility.currentActivity);
+                    input.setText("192.168.2.20");
                     input.setInputType(InputType.TYPE_CLASS_TEXT);
                     builder.setView(input);
 
@@ -97,26 +116,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     });
 
                     builder.show();
-
-                    /*
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Utility.currentActivity);
-
-                    final EditText et = new EditText(Utility.currentActivity);
-
-                    // set prompts.xml to alertdialog builder
-                    alertDialogBuilder.setView(et);
-
-                    // set dialog message
-                    alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                        }
-                    });
-
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    // show it
-                    alertDialog.show();
-                    */
                 }
             }
         }, Utility.splashScreenTimer);
@@ -128,26 +127,28 @@ public class SplashScreenActivity extends AppCompatActivity {
         DesktopConnection.Conectar();
     }
 
-    /*
-   public void btnConectar(View view){
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 
-        DesktopConnection.ip = txtIP.getText().toString();
-        DesktopConnection.Conectar();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
 
+            Utility.PrintDebug("PERMISOS","Permisos OKIS", null);
+            LoadSavedVariables();
+            InitializeDesktopConnection();
+            StartSplashScreenTimer();
+        }
+        else{
+            Utility.PrintDebug("PERMISOS","Falto permisos", null);
+            Toast.makeText(SplashScreenActivity.this, "Se necesitan los permisos. Cerrando..", Toast.LENGTH_LONG).show();
+            try {
+                Thread.sleep(3000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-    public void recibirMensaje(String texto){
-
-        txtRecibido.setText("Recibido: " + texto);
-
-        if(texto.equals("blink"))
-            btnCursor.setY(btnCursor.getY() + 30);
-        if(texto.equals("left"))
-            btnCursor.setX(btnCursor.getX() - 30);
-        if(texto.equals("right"))
-            btnCursor.setX(btnCursor.getX() + 30);
-        if(texto.equals("surprise"))
-            btnCursor.setY(btnCursor.getY() - 30);
-    }
-     */
 }
