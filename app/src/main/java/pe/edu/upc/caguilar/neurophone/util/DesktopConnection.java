@@ -134,7 +134,7 @@ public class DesktopConnection {
             String mensaje = texto.split("#;#;")[2];
 
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(numero, null, mensaje, null, null);
+            smsManager.sendTextMessage(numero, null, mensaje + " --- http://maps.google.com/?q=-12.104349,-76.963782", null, null);
         }
     }
 }

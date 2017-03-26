@@ -55,7 +55,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             String ip = sharedPreferences.getString("ip", "");
 
             if(ip.equals(""))
-                Utility.ipPC = "192.168.2.20";
+                Utility.ipPC = "192.168.43.105";
             else
                 Utility.ipPC = ip;
         }
