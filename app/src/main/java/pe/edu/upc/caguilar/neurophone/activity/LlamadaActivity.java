@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import pe.edu.upc.caguilar.neurophone.R;
+import pe.edu.upc.caguilar.neurophone.dao.ContactoDAO;
 import pe.edu.upc.caguilar.neurophone.helper.StatePhoneReceiver;
 import pe.edu.upc.caguilar.neurophone.model.Contacto;
 import pe.edu.upc.caguilar.neurophone.util.DesktopConnection;
@@ -41,6 +42,7 @@ public class LlamadaActivity extends AppCompatActivity{
     /*#############################################################################################*/
     private void ObtenerContactos(){
 
+        /*
         Utility.PrintDebug("LlamadaActivity","Obtener Contactos", null);
 
         ContentResolver cr = this.getContentResolver(); //Activity/Application android.content.Context
@@ -107,7 +109,21 @@ public class LlamadaActivity extends AppCompatActivity{
         }
 //        cadenaEnviar.replaceAll("\r\n","");
         DesktopConnection.SendMessage(cadenaEnviar);
+       */
 
+        ContactoDAO contactoDAO = new ContactoDAO();
+
+        List<Contacto> lstContactos = contactoDAO.listarContactos();
+
+        String cadenaEnviar = "";
+
+        for(int i=0; i<lstContactos.size(); i++){ //alContacts.size()
+            if(i==25)
+                break;
+            cadenaEnviar = cadenaEnviar + lstContactos.get(i).getId() + "#;#;" + lstContactos.get(i).getNombre() + "#;#;" + lstContactos.get(i).getNumero() + "#;#;" + lstContactos.get(i).getEmail() + "#;#;" + lstContactos.get(i).getFoto() + "&;&;";
+        }
+//        cadenaEnviar.replaceAll("\r\n","");
+        DesktopConnection.SendMessage(cadenaEnviar);
     }
 
     /*#############################################################################################*/
@@ -255,7 +271,7 @@ public class LlamadaActivity extends AppCompatActivity{
         if(texto.contains("Cortar"))
             CortarLlamada();
 
-        if(texto.equals("LlamadaContacto"))
+        if(texto.equals("ContactosListar"))
             ObtenerContactos();
 
         /*############################# GENERICOS #############################*/
