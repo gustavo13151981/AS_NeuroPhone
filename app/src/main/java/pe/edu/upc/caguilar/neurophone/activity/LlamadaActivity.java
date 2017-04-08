@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Method;
@@ -36,6 +38,11 @@ public class LlamadaActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llamada);
+
+        TextView myTextView = (TextView) findViewById(R.id.textView);
+        Typeface typeface=Typeface.createFromAsset(getAssets(), "fonts/segoeui.ttf");
+        myTextView.setTypeface(typeface);
+
 
         Utility.currentActivity = this;
     }
@@ -306,23 +313,23 @@ public class LlamadaActivity extends AppCompatActivity{
             finish();
         }
 
-        if(texto.equals("ReproductorFocus")){
-            Intent intent = new Intent(this,ReproductorAudioActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-        if(texto.equals("RelojFocus")){
-            Intent intent = new Intent(this,RelojAlarmaActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-        if(texto.equals("DocumentoFocus")){
-            Intent intent = new Intent(this,DocumentoActivity.class);
-            startActivity(intent);
-            finish();
-        }
+//        if(texto.equals("ReproductorFocus")){
+//            Intent intent = new Intent(this,ReproductorAudioActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//
+//        if(texto.equals("RelojFocus")){
+//            Intent intent = new Intent(this,RelojAlarmaActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//
+//        if(texto.equals("DocumentoFocus")){
+//            Intent intent = new Intent(this,DocumentoActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
         if(texto.equals("InternetFocus")){
             Intent intent = new Intent(this,InternetActivity.class);

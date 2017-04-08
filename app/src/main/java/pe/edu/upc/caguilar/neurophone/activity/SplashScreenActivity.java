@@ -72,7 +72,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
 
                 if(DesktopConnection.connected){
-                    Intent intent = new Intent(SplashScreenActivity.this,LlamadaActivity.class);
+                    Intent intent = new Intent(SplashScreenActivity.this,MainMenuActivity.class);
                     startActivity(intent);
                     finish();
                 }

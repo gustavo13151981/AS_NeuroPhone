@@ -4,12 +4,14 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorLlamada">#69b667</color>
-    <color name="colorLlamadaCabecera">#69b685</color>
-
-    <color name="colorMensaje">#00a9e0</color>
-    <color name="colorMensajeCabecera">#00a9ff</color>
-
-    <color name="colorContacto">#ffda57</color>
-    <color name="colorContactoCabecera">#ffda7a</color>
+    <color name="colorLlamada">#43AB35</color> <!-- #69b667 -->
+    <color name="colorEmergencia">#D21A1D</color>
+    <color name="colorContacto">#FAB71D</color>
+    <color name="colorMensaje">#33A6DE</color>
+    <color name="colorGaleria">#E63860</color>
+    <color name="colorEmail">#525E55</color>
+    <color name="colorCamara">#68778B</color>
+    <color name="colorNota">#6E4F9B</color>
+    <color name="colorReproductor">#1BAF93</color>
+    <color name="colorInternet">#2A77BC</color>
 </resources>

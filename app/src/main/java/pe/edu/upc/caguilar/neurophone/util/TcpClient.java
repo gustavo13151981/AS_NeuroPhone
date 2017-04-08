@@ -28,18 +28,10 @@ public class TcpClient {
     // used to read messages from the server
     private BufferedReader mBufferIn;
 
-    /**
-     * Constructor of the class. OnMessagedReceived listens for the messages received from server
-     */
     public TcpClient(OnMessageReceived listener) {
         mMessageListener = listener;
     }
 
-    /**
-     * Sends the message entered by client to the server
-     *
-     * @param message text entered by client
-     */
     public void sendMessage(String message) {
         if (mBufferOut != null && !mBufferOut.checkError()) {
             //mBufferOut.println(message);
@@ -49,9 +41,6 @@ public class TcpClient {
         }
     }
 
-    /**
-     * Close the connection and release the members
-     */
     public void stopClient() {
 
         mRun = false;
@@ -72,44 +61,26 @@ public class TcpClient {
         mRun = true;
 
         try {
-            //here you must put your computer's IP address.
-            //InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-            InetAddress serverAddr = InetAddress.getByName(serverIP);
 
             Utility.PrintDebug("TcpClient", "Initializing connection", null);
 
-            //create a socket to make the connection with the server
-//            Socket socket = null;
-
             try {
                 SocketAddress socketAddress = new InetSocketAddress(Utility.ipPC,Utility.port);
-                //socket = new Socket(serverAddr, SERVER_PORT);
                 Utility.PrintDebug("TcpClient", "Connecting " + Utility.ipPC, null);
                 socket = new Socket();
                 socket.connect(socketAddress,Utility.socketTimeOutTimer);
-                //socket.connect(serverAddr,serverAddr);
-                //sends the message to the server
-
-//              SplashScreenActivity objActivity1 = (SplashScreenActivity) Utility.currentActivity;
-//              objActivity1.recibirMensaje("OK");
 
                 mBufferOut = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 
-                //receives the message which the server sends back
                 mBufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                //sends a message to the server as an SUCCESS
                 sendMessage("OK");
-                //sets connected to true so splashScreen can switch to MainMenu
                 DesktopConnection.connected = true;
 
-                //in this while the client listens for the messages sent by the server
                 while (mRun) {
 
                     mServerMessage = mBufferIn.readLine();
-                    //if(!mBufferIn.ready()){
                         if (mServerMessage != null && mMessageListener != null) {
-                            //call the method messageReceived from MyActivity class
                             if(mServerMessage.equals("EXIT"))
                                 break;
                             else{
@@ -117,11 +88,10 @@ public class TcpClient {
                                 mServerMessage = "";
                             }
                         }
-                    //}
-                    //mServerMessage += Character.toString((char)mBufferIn.read());
                 }
 
                 Utility.PrintDebug("TcpClient", "Conexion Finalizada EXIT", null);
+
             } catch (Exception e) {
                 Utility.PrintDebug("TcpClient", "Socket Exception " + e.getMessage(), null);
             } finally {
@@ -131,10 +101,9 @@ public class TcpClient {
 
         } catch (Exception e) {
 
-            Utility.PrintDebug("TcpClient", "Socket Final Exception " + e.getMessage()
-                    , null);
-            Utility.currentActivity.finish();
+            Utility.PrintDebug("TcpClient", "Socket Final Exception " + e.getMessage(), null);
             Utility.PrintDebug("TcpClient",Utility.currentActivity.getLocalClassName(), null);
+            Utility.currentActivity.finish();
         }
     }
 

@@ -36,9 +36,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.MainMenuActivity"
-            android:label="MainMenu" />
+            android:label="MainMenu"
+            android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".activity.ContactoActivity"
             android:label="Contacto"
@@ -62,18 +64,6 @@
         <activity
             android:name=".activity.GaleriaActivity"
             android:label="Galeria"
-            android:theme="@style/AppThemeNoActionBar" />
-        <activity
-            android:name=".activity.RelojAlarmaActivity"
-            android:label="RelojAlarma"
-            android:theme="@style/AppThemeNoActionBar" />
-        <activity
-            android:name=".activity.DocumentoActivity"
-            android:label="Documento"
-            android:theme="@style/AppThemeNoActionBar" />
-        <activity
-            android:name=".activity.ReproductorAudioActivity"
-            android:label="ReproductorAudio"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".activity.InternetActivity"

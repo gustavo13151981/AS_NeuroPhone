@@ -59,21 +59,21 @@ public class EmergenciaActivity extends AppCompatActivity {
         }
 
         if(texto.equals("ReproductorFocus")){
-            Intent intent = new Intent(this,ReproductorAudioActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(this,ReproductorAudioActivity.class);
+//            startActivity(intent);
+//            finish();
         }
 
         if(texto.equals("RelojFocus")){
-            Intent intent = new Intent(this,RelojAlarmaActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(this,RelojAlarmaActivity.class);
+//            startActivity(intent);
+//            finish();
         }
 
         if(texto.equals("DocumentoFocus")){
-            Intent intent = new Intent(this,DocumentoActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(this,DocumentoActivity.class);
+//            startActivity(intent);
+//            finish();
         }
 
         if(texto.equals("InternetFocus")){

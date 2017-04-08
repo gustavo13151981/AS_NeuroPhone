@@ -58,23 +58,23 @@ public class GaleriaActivity extends AppCompatActivity {
             finish();
         }
 
-        if(texto.equals("ReproductorFocus")){
-            Intent intent = new Intent(this,ReproductorAudioActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-        if(texto.equals("RelojFocus")){
-            Intent intent = new Intent(this,RelojAlarmaActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-        if(texto.equals("DocumentoFocus")){
-            Intent intent = new Intent(this,DocumentoActivity.class);
-            startActivity(intent);
-            finish();
-        }
+//        if(texto.equals("ReproductorFocus")){
+//            Intent intent = new Intent(this,ReproductorAudioActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//
+//        if(texto.equals("RelojFocus")){
+//            Intent intent = new Intent(this,RelojAlarmaActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//
+//        if(texto.equals("DocumentoFocus")){
+//            Intent intent = new Intent(this,DocumentoActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
         if(texto.equals("InternetFocus")){
             Intent intent = new Intent(this,InternetActivity.class);
