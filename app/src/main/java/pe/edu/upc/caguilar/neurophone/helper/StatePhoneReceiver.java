@@ -5,6 +5,9 @@ import android.media.AudioManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import pe.edu.upc.caguilar.neurophone.util.DesktopConnection;
 import pe.edu.upc.caguilar.neurophone.util.Utility;
 
@@ -33,7 +36,33 @@ public class StatePhoneReceiver extends PhoneStateListener {
                 //Activate loudspeaker
                 AudioManager audioManager = (AudioManager)Utility.currentActivity.getSystemService(Context.AUDIO_SERVICE);
                 audioManager.setMode(AudioManager.MODE_IN_CALL);
+                audioManager.setMode(AudioManager.MODE_NORMAL);
                 audioManager.setSpeakerphoneOn(true);
+
+                final int FOR_MEDIA = 1;
+                final int FORCE_NONE = 0;
+                final int FORCE_SPEAKER = 1;
+
+                Class audioSystemClass = null;
+                try {
+                    audioSystemClass = Class.forName("android.media.AudioSystem");
+                    Method setForceUse = audioSystemClass.getMethod("setForceUse", int.class, int.class);
+                    setForceUse.invoke(null, FOR_MEDIA, FORCE_SPEAKER);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                    Utility.PrintDebug("Catch", "1",null);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                    Utility.PrintDebug("Catch", "1",null);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    Utility.PrintDebug("Catch", "1",null);
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                    Utility.PrintDebug("Catch", "1",null);
+                }
+
+
                 DesktopConnection.SendMessage("LlamadaLlamarOK");
                 llamando = true;
                 break;
