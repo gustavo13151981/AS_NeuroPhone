@@ -23,6 +23,7 @@ import pe.edu.upc.caguilar.neurophone.util.Utility;
 
 public class ContactoDAO {
 
+    /*#############################################################################################*/
     public void actualizarContacto(Contacto objContacto){
 
         Utility.PrintDebug("ContactoDAO ", "EntroActualizar", null);
@@ -63,6 +64,7 @@ public class ContactoDAO {
         }
     }
 
+    /*#############################################################################################*/
     public ArrayList<String> getAllConactIds(){
         ArrayList<String> contactList = new ArrayList<String>();
 
@@ -86,6 +88,7 @@ public class ContactoDAO {
         return contactList;
     }
 
+    /*#############################################################################################*/
     public String obtenerNombreContacto(String numeroTelefono){
 
         ContentResolver cr = Utility.currentActivity.getContentResolver();
@@ -108,6 +111,7 @@ public class ContactoDAO {
         return contactName;
     }
 
+    /*#############################################################################################*/
     public List<Contacto> listarContactos(){
 
         ContentResolver cr = Utility.currentActivity.getContentResolver(); //Activity/Application android.content.Context
@@ -164,9 +168,10 @@ public class ContactoDAO {
         return lstContactos;
     }
 
+    /*#############################################################################################*/
     public String listarSMS(){
 
-        Uri smsUri = Uri.parse("content://sms/"); //"content://sms/inbox"
+        Uri smsUri = Uri.parse("content://sms"); //"content://sms/inbox"
         String[] smsProjection = new String[] {"_id", "address", "person", "body", "date", "type"};
         String smsSelection =  null;//"address='+51989029987'";
         ContentResolver cr = Utility.currentActivity.getContentResolver();
@@ -176,16 +181,17 @@ public class ContactoDAO {
 
         if (smsCursor.moveToFirst()) {
             do {
+                String msg = "";
+                msg += smsCursor.getString(smsCursor.getColumnIndex("_id"));
+                msg += "#;#;" + smsCursor.getString(smsCursor.getColumnIndex("address"));
+                msg += "#;#;" + obtenerNombreContacto(smsCursor.getString(smsCursor.getColumnIndex("address")));//smsCursor.getString(smsCursor.getColumnIndex("person"));
+                msg += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("body"));
+                msg += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("date"));
+                msg += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("type"));
+                msg += "&;&;";
 
-                msgData += smsCursor.getString(smsCursor.getColumnIndex("_id"));
-                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndex("address"));
-                msgData += "#;#;" + obtenerNombreContacto(smsCursor.getString(smsCursor.getColumnIndex("address")));//smsCursor.getString(smsCursor.getColumnIndex("person"));
-                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("body"));
-                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("date"));
-                msgData += "#;#;" + smsCursor.getString(smsCursor.getColumnIndexOrThrow("type"));
-                msgData += "&;&;";
-
-                Utility.PrintDebug("ContactoDAO ", msgData , null);
+                msgData += msg;
+                Utility.PrintDebug("ContactoDAO", msg , null);
 
             } while (smsCursor.moveToNext());
         } else {
@@ -193,5 +199,25 @@ public class ContactoDAO {
         }
 
         return msgData;
+    }
+
+    /*#############################################################################################*/
+    public void eliminarSMS(String ids){
+
+        try {
+            ContentResolver cr = Utility.currentActivity.getContentResolver();
+
+            List<String> lstID = Arrays.asList(ids.split("#;#;"));
+
+            for (String id : lstID) {
+                Utility.PrintDebug("ContactoDAO ", "Eliminar SMS Inicios id = " + id , null);
+
+                cr.delete(Uri.parse("content://sms/" + id),null,null);
+            }
+
+
+        } catch (Exception e) {
+            Utility.PrintDebug("ContactoDAO ", "Exception : " + e.getMessage() , null);
+        }
     }
 }

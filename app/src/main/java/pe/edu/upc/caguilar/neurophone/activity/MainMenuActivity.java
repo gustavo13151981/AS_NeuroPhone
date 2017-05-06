@@ -1,5 +1,6 @@
 package pe.edu.upc.caguilar.neurophone.activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import pe.edu.upc.caguilar.neurophone.R;
 import pe.edu.upc.caguilar.neurophone.helper.ContactoHelper;
+import pe.edu.upc.caguilar.neurophone.helper.GaleriaHelper;
 import pe.edu.upc.caguilar.neurophone.helper.LlamadaHelper;
 import pe.edu.upc.caguilar.neurophone.helper.MensajeHelper;
 import pe.edu.upc.caguilar.neurophone.util.Utility;
@@ -63,9 +65,65 @@ public class MainMenuActivity extends AppCompatActivity {
                     FuncionalidadEmergencia(accionTotal);
                     break;
 
+                case "Galeria":
+                    FuncionalidadGaleria(accionTotal);
+                    break;
+
+                case "Camara":
+                    FuncionalidadCamara(accionTotal);
+                    break;
+
             }
         }catch (Exception e){
             Utility.PrintDebug("Catch",e.getMessage(),null);
+        }
+    }
+
+    /*#############################################################################################*/
+    private void FuncionalidadCamara(String accionTotal) {
+
+        try {
+
+            String accion = accionTotal.split("#;#;")[0];
+            Utility.PrintDebug("FuncionalidadCamara",accion,null);
+
+            switch (accion) {
+
+                case "Iniciar":
+                    Intent intent = new Intent(getApplication(),CamaraActivity.class);
+                    startActivity(intent);
+                    break;
+
+//                case "Tomar":
+//                    Utility.PrintDebug("TOMAR","LOL",null);
+//                    CamaraActivity act = (CamaraActivity)Utility.currentActivity;
+//                    act.btnTakePicture(act.getCurrentFocus());
+//
+//                    break;
+            }
+
+
+        }catch (Exception e){
+            Utility.PrintDebug("Catch",e.getMessage(),null);
+        }
+    }
+
+    /*#############################################################################################*/
+    private void FuncionalidadGaleria(String accionTotal) {
+
+        try {
+
+            String accion = accionTotal.split("#;#;")[0];
+
+            switch (accion) {
+
+                case "Listar": // Listar
+                    GaleriaHelper.ObtenerImagenes();
+                    break;
+            }
+
+        } catch (Exception e) {
+            Utility.PrintDebug("Catch", e.getMessage(), null);
         }
     }
 
@@ -87,6 +145,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private void FuncionalidadMensaje(String accionTotal) {
 
         try {
+            Utility.PrintDebug("FuncionalidadMensaje", accionTotal, null);
 
             String accion = accionTotal.split("#;#;")[0];
 
@@ -98,6 +157,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 case "Enviar": // Enviar#;#;986655532#;#;SMS
                     MensajeHelper.EnviarSMS(accionTotal.split("#;#;", 2)[1]);
                     break;
+                case "Eliminar": // Eliminar#;#;111
+                    MensajeHelper.EliminarSMS(accionTotal.split("#;#;", 2)[1]);
             }
 
         } catch (Exception e) {

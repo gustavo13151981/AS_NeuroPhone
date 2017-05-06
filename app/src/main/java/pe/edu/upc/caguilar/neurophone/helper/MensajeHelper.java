@@ -9,10 +9,6 @@ import pe.edu.upc.caguilar.neurophone.dao.ContactoDAO;
 import pe.edu.upc.caguilar.neurophone.util.DesktopConnection;
 import pe.edu.upc.caguilar.neurophone.util.Utility;
 
-/**
- * Created by cagui on 8/04/2017.
- */
-
 public class MensajeHelper {
 
     /*#############################################################################################*/
@@ -30,6 +26,20 @@ public class MensajeHelper {
             Utility.PrintDebug("Catch",e.getMessage(),null);
         }
     }
+
+     /*#############################################################################################*/
+     public static void EliminarSMS(String ids){
+
+         try {
+
+             ContactoDAO contactoDAO = new ContactoDAO();
+
+             contactoDAO.eliminarSMS(ids);
+
+         }catch (Exception e){
+             Utility.PrintDebug("Catch",e.getMessage(),null);
+         }
+     }
 
     /*#############################################################################################*/
     public static void ObtenerSMS(){

@@ -71,6 +71,10 @@ public class DesktopConnection {
                         MainMenuActivity objActivity1 = (MainMenuActivity) Utility.currentActivity;
                         objActivity1.RecibirMensaje(texto);
                         break;
+                    case "CamaraActivity":
+                        CamaraActivity objActivity2 = (CamaraActivity) Utility.currentActivity;
+                        objActivity2.RecibirMensaje(texto);
+                        break;
                 }
             }
         }
