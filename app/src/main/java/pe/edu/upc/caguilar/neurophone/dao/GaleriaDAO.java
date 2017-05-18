@@ -67,6 +67,9 @@ public class GaleriaDAO {
     /*#############################################################################################*/
     private void addSongToList(File file) {
 
+        if (file.getName().startsWith("149"))
+        return;
+
         if (file.getName().endsWith(jpgPattern) || file.getName().endsWith(pngPattern)) {
 
             Imagen img = new Imagen();
